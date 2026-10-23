@@ -1,0 +1,100 @@
+<!-- 1 Fragmento con formulario unificado para agregar y modificar servicios -->
+<section th:fragment="formulario">
+    <div class="container pt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tipoServicioModal" 
+                data-modo="agregar" th:data-titulo="#{tipo.agregar}">
+                <i class="fa-solid fa-plus"></i> [[#{tipo.agregar}]]
+            </button>
+        </div>
+    <div class="modal fade" id="tipoServicioModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="tipoServicioForm" method="post" th:action="@{/tipos/guardar}" th:object="${tipoServicio}">
+                    <div class="modal-header" id="tipoServicioModalHeader">
+                        <h5 class="modal-title" id="tipoServicioModalTitulo"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" th:aria-label="#{accion.cerrar}"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="tipoServicioId" th:field="*{id}"/>
+                        <div class="mb-3">
+                            <label for="tipoServicioNombre" class="form-label">[[#{tipo.nombre}]]</label>
+                            <input type="text" id="tipoServicioNombre" th:field="*{nombre}" class="form-control" maxlength="100" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipoServicioDescripcion" class="form-label">[[#{tipo.descripcion}]]</label>
+                            <input type="text" id="tipoServicioDescripcion" th:field="*{descripcion}" class="form-control" maxlength="255"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-xmark"></i> [[#{accion.cerrar}]]
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-floppy-disk"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- fragmento 2 para el listado de suculentas -->
+<section th:fragment="listado" class="container py-3">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header"><h4>[[#{tipo.listado}]]</h4></div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${tipos != null and !tipos.empty}">
+                        <table class="table table-striped table-hover align-middie">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>[[#{tipo.nombre}]]</th>
+                                    <th>[[#{tipo.descripcion}]]</th>
+                                    <th class="text-center">[[#{tipo.cantidadServicios}]]</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="t : ${tipos}">
+                                    <td>[[${t.id}]]</td>
+                                    <td>[[${t.nombre}]]</td>
+                                    <td>[[${t.descripcion}]]</td>
+                                    <td class="text-center"><span class="badge text-bg-primary">[[${t.servicios.size()}]]</span></td>
+                                    <td class="text-nowrap">
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" 
+                                                data-bs-target="#tipoServicioModal" data-modo="editar" th:data-titulo="#{tipo.editar}"
+                                                th:data-id="${t.id}" th:data-nombre="${t.nombre}" 
+                                                th:data-descripcion="${t.descripcion !=null ? t.descripcion : ''}">
+                                            <i class="fa-solid fa-pencil"></i> [[#{accion.actualizar}]]
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" 
+                                                data-bs-target="#confirmModal" th:data-bs-id="${t.id}" th:data-bs-descripcion="${t.nombre}">
+                                            <i class="fa-solid fa-trash"></i> [[#{accion.eliminar}]]
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" th:if="${tipos == null or tipos.empty}">
+                        <span>[[#{lista.vacia}]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mt-3 mt-md-0">
+            <div class="card text-center text-bg-primary">
+                <div class="card-body">
+                    <h3 class="h5">[[#{tipo.total}]]</h3>
+                    <p class="fs-2 mb-0"><i class="fa-solid fa-syringe"></i>[[${totalTipos}]]</p>
+                    <h4 class="fs-2"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

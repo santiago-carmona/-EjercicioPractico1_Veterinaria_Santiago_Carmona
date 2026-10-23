@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head th:replace="~{general/fragmentos :: head}"></head>
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
+        <section th:replace="~{general/fragmentos :: mostrarToast}"></section>
+        <section th:replace="~{tipos/fragmentos :: formulario}"></section>
+        <section th:replace="~{tipos/fragmentos :: listado}"></section>
+        <section th:replace="~{general/fragmentos :: confirmarEliminar(@{/tipos/eliminar},'id')}"></section>
+        <footer th:replace='~{general/fragmentos :: footer}'></footer>
+        <script th:src="@{/js/modulos/tipoServicio.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head th:replace="~{general/fragmentos :: head}"></head>
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
+        <section th:replace="~{general/fragmentos :: mostrarToast}"></section>
+
+        <!-- Bienvenida -->
+        <section class="container py-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6">
+                    <h2 class="display-6">[[#{index.bienvenida}]]</h2>
+                    <p class="lead">[[#{index.descripcion}]]</p>
+                    <a th:href="@{/servicios/listado}" class="btn btn-primary me-2">
+                        <i class="fa-solid fa-syringe"></i> [[#{index.verServicios}]]
+                    </a>
+                    <a th:href="@{/citas/listado}" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-calendar-days"></i> [[#{index.verCitas}]]
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ratio ratio-16x9 border rounded overflow-hidden">
+                        <iframe src="https://www.youtube.com/embed/TbgB5zH8_3E"
+                            th:title="#{index.video.titulo}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            loading="lazy"
+                            allowfullscreen>   
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaña  -->
+        <section class="container pb-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <i class="fa-solid fa-gift"></i> [[#{index.campana.etiqueta}]]
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="card-title">[[#{index.campana.titulo}]]</h3>
+                            <p class="card-text">[[#{index.campana.texto}]]</p>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-circle-check text-success"></i> [[#{index.campana.punto1}]]</li>
+                                <li><i class="fa-solid fa-circle-check text-success"></i> [[#{index.campana.punto2}]]</li>
+                                <li><i class="fa-solid fa-circle-check text-success"></i> [[#{index.campana.punto3}]]</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 text-md-center mt-3 mt-md-0">
+                            <span class="badge text-bg-success fs-5 mb-3">[[#{index.campana.descuento}]]</span>
+                            <div>
+                                <a th:href="@{/#consultas}" class="btn btn-success">
+                                    <i class="fa-solid fa-envelope"></i> [[#{index.campana.boton}]]
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Información de la clínica -->
+        <section class="container py-3">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="h5"><i class="fa-solid fa-clock text-primary"></i> [[#{index.horario.titulo}]]</h4>
+                            <p class="mb-1">[[#{index.horario.semana}]]</p>
+                            <p class="mb-1">[[#{index.horario.sabado}]]</p>
+                            <p class="mb-0">[[#{index.horario.domingo}]]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="h5"><i class="fa-solid fa-location-dot text-primary"></i> [[#{index.ubicacion.titulo}]]</h4>
+                            <p class="mb-1">[[#{index.ubicacion.direccion}]]</p>
+                            <p class="mb-0"><i class="fa-solid fa-phone"></i> [[#{index.ubicacion.telefono}]]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="h5"><i class="fa-solid fa-heart-pulse text-primary"></i> [[#{index.especialidades.titulo}]]</h4>
+                            <ul class="mb-0">
+                                <li>[[#{index.especialidades.uno}]]</li>
+                                <li>[[#{index.especialidades.dos}]]</li>
+                                <li>[[#{index.especialidades.tres}]]</li>
+                                <li>[[#{index.especialidades.cuatro}]]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario de consultas -->
+        <section id="consultas" class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header"><h4 class="mb-0"><i class="fa-solid fa-envelope"></i> [[#{consulta.titulo}]]</h4></div>
+                        <div class="card-body">
+                            <form method="post" th:action="@{/consultas/enviar}">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="consultaNombre" class="form-label">[[#{consulta.nombre}]]</label>
+                                        <input type="text" id="consultaNombre" name="nombre" class="form-control" maxlength="100" required/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="consultaCorreo" class="form-label">[[#{consulta.correo}]]</label>
+                                        <input type="email" id="consultaCorreo" name="correo" class="form-control" maxlength="100" required/>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="consultaMascota" class="form-label">[[#{consulta.mascota}]]</label>
+                                    <input type="text" id="consultaMascota" name="nombreMascota" class="form-control" maxlength="100" required/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="consultaMensaje" class="form-label">[[#{consulta.mensaje}]]</label>
+                                    <textarea id="consultaMensaje" name="mensaje" class="form-control" rows="4" maxlength="500" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-paper-plane"></i> [[#{consulta.enviar}]]
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    </body>
+</html>
